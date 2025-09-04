@@ -1,0 +1,756 @@
+{
+  "name": "Google Sheets => Hubspot CRM => Gmail",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1t5sng7NZD_koozpCWvHOTO8UwYtbD6YaLEhEFzxwEZ8",
+          "mode": "list",
+          "cachedResultName": "Siznam Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t5sng7NZD_koozpCWvHOTO8UwYtbD6YaLEhEFzxwEZ8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1t5sng7NZD_koozpCWvHOTO8UwYtbD6YaLEhEFzxwEZ8/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "id": "6d794ef8-d2f1-4d21-b01b-71edaed448c5",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "rKvBCOHP5PDbilMs",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "email": "={{ $json.Email }}",
+        "additionalFields": {
+          "firstName": "={{ $json['First Name'] }}",
+          "lastName": "={{ $json['Last Name'] }}",
+          "phoneNumber": "={{ $json['Phone Number'] }}"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [208, 0],
+      "id": "54a521b1-7b56-4298-bded-ab03377ff3d8",
+      "name": "Create or update a contact",
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "mhjLLKdqMSKh92X3",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.properties.email.value }}",
+        "subject": "Follow-up",
+        "emailType": "text",
+        "message": "=Hi  {{ $json.properties.firstname.value }},\n\nI hope you’re doing well. I just wanted to follow up regarding our recent discussion about automation. Please let me know if you’d like me to share more details or schedule a quick call to explore how we can help with.\n\nLooking forward to your thoughts.\n\nBest regards,\nFaizan Shahid\nSiznam co.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [416, 0],
+      "id": "2e0faf52-5460-47f4-a027-48d279dddcf1",
+      "name": "Send a message",
+      "webhookId": "5d70519d-ae87-4ac8-8706-d77d91698ba0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "FwcO0kWSXGRXblO6",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Google Sheets Trigger": [
+      {
+        "json": {
+          "Record ID": "",
+          "First Name": "Denzil",
+          "Last Name": "Robert",
+          "Email": "denzilrobert.se@gmail.com",
+          "Phone Number": 3214354326,
+          "Contact owner": "",
+          "Primary Associated Company ID": "",
+          "Last Activity Date": "",
+          "Lead Status": "",
+          "Marketing contact status": "",
+          "Create Date": "",
+          "Associated Company": ""
+        }
+      }
+    ],
+    "Create or update a contact": [
+      {
+        "json": {
+          "vid": 231426892489,
+          "canonical-vid": 231426892489,
+          "merged-vids": [],
+          "portal-id": 243756196,
+          "is-contact": true,
+          "properties": {
+            "hs_is_unworked": {
+              "value": "true",
+              "versions": [
+                {
+                  "value": "true",
+                  "source-type": "CALCULATED",
+                  "source-id": "CalculatedPropertyComputer",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "firstname": {
+              "value": "Denzil",
+              "versions": [
+                {
+                  "value": "Denzil",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411604,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "num_unique_conversion_events": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809412173,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_pipeline": {
+              "value": "contacts-lifecycle-pipeline",
+              "versions": [
+                {
+                  "value": "contacts-lifecycle-pipeline",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_prospecting_agent_total_enrolled_count": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "InitialRollupProperties",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_membership_has_accessed_private_content": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "CalculatedPropertyComputer",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "createdate": {
+              "value": "1756809411709",
+              "versions": [
+                {
+                  "value": "1756809411709",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_object_source_detail_1": {
+              "value": "MyHubSpotApp",
+              "versions": [
+                {
+                  "value": "MyHubSpotApp",
+                  "source-type": "INTERNAL_PROCESSING",
+                  "source-id": "RecordSourceDetailsWriterWorker",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809412004,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_calculated_phone_number_country_code": {
+              "value": "US",
+              "versions": [
+                {
+                  "value": "US",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_registered_member": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "CalculatedPropertyComputer",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_associated_target_accounts": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "InitialRollupProperties",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_object_source_label": {
+              "value": "INTEGRATION",
+              "versions": [
+                {
+                  "value": "INTEGRATION",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_sequences_actively_enrolled_count": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "InitialRollupProperties",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_marketable_until_renewal": {
+              "value": "false",
+              "versions": [
+                {
+                  "value": "false",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_marketable_status": {
+              "value": "false",
+              "versions": [
+                {
+                  "value": "false",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_object_source_id": {
+              "value": "19062018",
+              "versions": [
+                {
+                  "value": "19062018",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_searchable_calculated_phone_number": {
+              "value": "3214354326",
+              "versions": [
+                {
+                  "value": "3214354326",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_prospecting_agent_actively_enrolled_count": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "InitialRollupProperties",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_email_domain": {
+              "value": "gmail.com",
+              "versions": [
+                {
+                  "value": "gmail.com",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_currently_enrolled_in_prospecting_agent": {
+              "value": "false",
+              "versions": [
+                {
+                  "value": "false",
+                  "source-type": "CALCULATED",
+                  "source-id": "CalculatedPropertyComputer",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_calculated_phone_number": {
+              "value": "+13214354326",
+              "versions": [
+                {
+                  "value": "+13214354326",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "email": {
+              "value": "denzilrobert.se@gmail.com",
+              "versions": [
+                {
+                  "value": "denzilrobert.se@gmail.com",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411611,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "lastmodifieddate": {
+              "value": "1756809412004",
+              "versions": [
+                {
+                  "value": "1756809412004",
+                  "source-type": "INTERNAL_PROCESSING",
+                  "source-id": "RecordSourceDetailsWriterWorker",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809412004,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                },
+                {
+                  "value": "1756809411720",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411720,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                },
+                {
+                  "value": "1756809411709",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_full_name_or_email": {
+              "value": "Denzil Robert",
+              "versions": [
+                {
+                  "value": "Denzil Robert",
+                  "source-type": "CALCULATED",
+                  "source-id": "CalculatedPropertyComputer",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "lastname": {
+              "value": "Robert",
+              "versions": [
+                {
+                  "value": "Robert",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411604,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_all_contact_vids": {
+              "value": "231426892489",
+              "versions": [
+                {
+                  "value": "231426892489",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411713,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                },
+                {
+                  "value": "231426892489",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_is_contact": {
+              "value": "true",
+              "versions": [
+                {
+                  "value": "true",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "phone": {
+              "value": "3214354326",
+              "versions": [
+                {
+                  "value": "3214354326",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411604,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "num_conversion_events": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": null,
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809412173,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_object_id": {
+              "value": "231426892489",
+              "versions": [
+                {
+                  "value": "231426892489",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_object_source": {
+              "value": "INTEGRATION",
+              "versions": [
+                {
+                  "value": "INTEGRATION",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "hs_lifecyclestage_lead_date": {
+              "value": "1756809411709",
+              "versions": [
+                {
+                  "value": "1756809411709",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "lifecyclestage": {
+              "value": "lead",
+              "versions": [
+                {
+                  "value": "lead",
+                  "source-type": "INTEGRATION",
+                  "source-id": "19062018",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            },
+            "num_notes": {
+              "value": "0",
+              "versions": [
+                {
+                  "value": "0",
+                  "source-type": "CALCULATED",
+                  "source-id": "InitialRollupProperties",
+                  "source-label": null,
+                  "updated-by-user-id": null,
+                  "timestamp": 1756809411709,
+                  "selected": false,
+                  "data-sensitivity": null,
+                  "is-encrypted": null
+                }
+              ]
+            }
+          },
+          "form-submissions": [],
+          "list-memberships": [],
+          "identity-profiles": [
+            {
+              "vid": 231426892489,
+              "saved-at-timestamp": 1756809411648,
+              "deleted-changed-timestamp": 0,
+              "identities": [
+                {
+                  "type": "EMAIL",
+                  "value": "denzilrobert.se@gmail.com",
+                  "timestamp": 1756809411611,
+                  "is-primary": true
+                },
+                {
+                  "type": "LEAD_GUID",
+                  "value": "a1ac7a75-5934-4ef6-b38b-a33471662ba4",
+                  "timestamp": 1756809411646
+                }
+              ]
+            }
+          ],
+          "merge-audits": [],
+          "isNew": true
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create or update a contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a contact": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c571f4a2-3ec2-4f1f-9d64-b3a3cce28832",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1f89e292f4dc5d4be0c6a8685caf04d7dceeb6484606f5fbc3b30a32bb7f0f75"
+  },
+  "id": "sPEVVguzeRE9StOZ",
+  "tags": []
+}
